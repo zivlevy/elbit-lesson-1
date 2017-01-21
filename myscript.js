@@ -9,38 +9,35 @@ var myInput = document.getElementById("myInput");
 
 var counter = 1;
 
-for (var i =0; i<myListItems.length ; i++) {
-    // myListItems[i].innerHTML = "this is list item " + i;
-    myListItems[i].addEventListener('click',listItemClicked);
-    myListItems[i].addEventListener('dblclick',deleteListItem);
+for (var i = 0; i < myListItems.length; i++) {
+    addLiEventListener(myListItems[i]);
 }
 
-
+// adding event listeners
+function addLiEventListener(li) {
+    li.addEventListener('click', listItemClicked);
+}
 
 myButton.addEventListener('click', addListItem);
 
 function addListItem() {
     var li = document.createElement('li');
 
-    if (myInput.value === ""){
-        li.innerHTML =  "New item " + counter;
+    if (myInput.value === "") {
+        li.innerHTML = "New item " + counter;
         counter++;
     } else {
-
-        li.innerHTML =  myInput.value;
-
+        li.innerHTML = myInput.value;
     }
-    li.classList.add ('nonselectable');
-    li.addEventListener('click',listItemClicked);
-    li.addEventListener('',deleteListItem);
+    li.addEventListener('click', listItemClicked);
+
     myList.appendChild(li);
-
-
 }
 
 function listItemClicked(e) {
+    e.stopPropagation();
     //remove active class from others
-    for (i =0; i<myListItems.length ; i++) {
+    for (i = 0; i < myListItems.length; i++) {
         myListItems[i].classList.remove("active");
     }
     //add event listener to this item
@@ -56,17 +53,12 @@ function listItemClicked(e) {
 
 }
 
-// adding event listener
-function addLiEventListener (li) {
-    li.addEventListener('click',listItemClicked);
-    li.addEventListener('dblclick',deleteListItem);
-}
 
-function deleteListItem (element){
+function deleteListItem(element) {
     element.parentNode.removeChild(element);
 }
-document.addEventListener('click',documentClicked);
+document.addEventListener('click', documentClicked);
 
-function documentClicked(){
+function documentClicked() {
     console.log('doc clicked')
 }

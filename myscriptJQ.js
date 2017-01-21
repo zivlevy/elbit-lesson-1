@@ -1,53 +1,34 @@
 /**
  * Created by zivlevy on 20/01/2017.
  */
-var myHeader = document.getElementById("myHeader");
-var myButton = document.getElementById("myButton");
-var myList = document.getElementById("myList");
-var myListItems = myList.getElementsByTagName("li");
-var myInput = document.getElementById("myInput");
-
 var counter = 1;
 
-for (var i = 0; i < myListItems.length; i++) {
-    addLiEventListener(myListItems[i]);
-}
+$('body').on('click', 'li', listItemClicked);
+$("#myButton").click(addListItem);
 
-// adding event listeners
-function addLiEventListener(li) {
-    li.addEventListener('click', listItemClicked);
-}
 
-myButton.addEventListener('click', addListItem);
 
 function addListItem() {
-    var li = document.createElement('li');
+    console.log($("#myInput").val());
+    var text = $("#myInput").val() === "" ? "New item " + counter : $("#myInput").val();
+    counter+=1;
 
-    if (myInput.value === "") {
-        li.innerHTML = "New item " + counter;
-        counter++;
-    } else {
-        li.innerHTML = myInput.value;
-    }
-    li.addEventListener('click', listItemClicked);
+    $('#myList').append("<li>" + text + "</li>");
 
-    myList.appendChild(li);
+
 }
 
 function listItemClicked(e) {
     e.stopPropagation();
-    //remove active class from others
-    for (i = 0; i < myListItems.length; i++) {
-        myListItems[i].classList.remove("active");
-    }
+    $("li").removeClass("active");
     //add event listener to this item
-    this.classList.add("active");
+    $(this).addClass("active");
 
     if (e.shiftKey) {
         deleteListItem(this);
     } else {
         //change the header
-        myHeader.innerHTML = this.innerHTML;
+        $("#myHeader").html($(this).text());
     }
 
 
