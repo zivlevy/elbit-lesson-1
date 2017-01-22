@@ -9,7 +9,6 @@ $("#myButton").click(addListItem);
 
 
 function addListItem() {
-    console.log($("#myInput").val());
     var text = $("#myInput").val() === "" ? "New item " + counter : $("#myInput").val();
     counter+=1;
 

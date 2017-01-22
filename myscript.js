@@ -49,8 +49,6 @@ function listItemClicked(e) {
         //change the header
         myHeader.innerHTML = this.innerHTML;
     }
-
-
 }
 
 
